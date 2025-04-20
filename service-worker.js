@@ -1,4 +1,4 @@
-const CACHE_NAME = "dayview-pwa-v1";
+const CACHE_NAME = "dayview-pwa-v2";
 const ASSETS = [
   "/index.html",
   "/manifest.json",
@@ -18,3 +18,16 @@ self.addEventListener("fetch", event => {
     caches.match(event.request).then(resp => resp || fetch(event.request))
   );
 });
+
+self.addEventListener("activate", event => {
+  event.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(keys.map(key => {
+        if (key !== CACHE_NAME) {
+          return caches.delete(key);
+        }
+      }))
+    )
+  );
+});
+
