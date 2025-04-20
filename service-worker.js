@@ -1,6 +1,6 @@
 const CACHE_NAME = "dayview-pwa-v1";
 const ASSETS = [
-  "/DayView.htm",
+  "/index.html",
   "/manifest.json",
   "/service-worker.js",
   "/icons/icon-192.png",
