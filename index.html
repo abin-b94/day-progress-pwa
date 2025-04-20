@@ -32,7 +32,7 @@
 
     .container {
       width: 100%;
-      max-width: 700px;
+      max-width: 850px;
       margin: auto;
     }
 
@@ -91,6 +91,11 @@
     .controls button:hover {
       background: #388e3c;
     }
+
+    .clsProgressLabel{
+      font-size: 30px;
+      margin-top: 30px;
+    }
   </style>
 </head>
 <body class="dark-mode">
@@ -108,8 +113,8 @@
       <div class="progress-bar" id="progressBar"></div>
     </div>
 
-    <div class="label" id="progressLabel">0% of your day completed</div>
-    <div class="remaining-time" id="remainingTime">Remaining time: --</div>
+    <div class="label clsProgressLabel" id="progressLabel">0% of your day completed</div>
+    <div class="remaining-time clsProgressLabel" id="remainingTime">Remaining time: --</div>
   </div>
 
   <script>
