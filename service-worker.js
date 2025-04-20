@@ -1,4 +1,4 @@
-const CACHE_NAME = "dayview-pwa-v2";
+const CACHE_NAME = "dayview-pwa-v3";
 const ASSETS = [
   "/index.html",
   "/manifest.json",
