@@ -105,6 +105,7 @@
     <div class="controls">
       <button onclick="toggleTimeFormat()">Toggle Time Format</button>
       <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+      <button onclick="refreshQuote()">Refresh Quote</button>
     </div>
 
     <div class="timeline" id="timeline"></div>
@@ -211,6 +212,10 @@
     function toggleDarkMode() {
       document.body.classList.toggle("dark-mode");
     }
+	
+	    function refreshQuote() {
+     getQuote();
+    }
 
     generateTimeline();
     updateProgress();
@@ -238,17 +243,21 @@ document.getElementById("currentDate").textContent =
 <!-- const quoteBox = document.getElementById("quoteBox"); -->
 <!-- quoteBox.textContent = `"${quotes[Math.floor(Math.random() * quotes.length)]}"`; -->
 
+function getQuote()
+{
+ document.getElementById("quoteBox").textContent = 'Loading...';
 fetch("https://api.allorigins.win/get?url=" + encodeURIComponent("https://zenquotes.io/api/random"))
   .then(res => res.json())
   .then(data => {
     const json = JSON.parse(data.contents);
     const quote = json[0];
     document.getElementById("quoteBox").textContent = `"${quote.q}" — ${quote.a}`;
-  });
+  })
+  .catch(err =>  document.getElementById("quoteBox").textContent = "Quote fetch error AB");;
+}
 
+getQuote();
 
-
-	
 	if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js')
     .then(reg => console.log("✅ Service Worker registered!", reg))
