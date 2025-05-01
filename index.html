@@ -115,9 +115,31 @@
 
     <div class="label clsProgressLabel" id="progressLabel">0% of your day completed</div>
     <div class="remaining-time clsProgressLabel" id="remainingTime">Remaining time: --</div>
+	
+	<div class="extras" style="margin-top: 30px; text-align: center;">
+  <!-- Date and Time -->
+  <div style="margin-bottom: 10px;">
+    <span id="currentDate" style="font-weight: bold; font-size: 16px;"></span><br>
+    <span id="liveClock" style="font-size: 14px;"></span>
+  </div>
+
+  <!-- Motivational Quote -->
+  <div id="quoteBox" style="font-style: italic; margin-bottom: 20px;"></div>
+
+  <!-- Daily Goals Checklist -->
+  <div style="margin-bottom: 10px; display:none;">
+    <h4 style="margin-bottom: 10px;">Today's Goals</h4>
+    <label><input type="checkbox"> Workout</label><br>
+    <label><input type="checkbox"> Read 15 mins</label><br>
+    <label><input type="checkbox"> Meditate</label><br>
+    <label><input type="checkbox"> No social media till noon</label><br>
+  </div>
+</div>
+
   </div>
 
   <script>
+  const today = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     const startTime = "06:00";
     const endTime = "23:00";
     let use12HourFormat = false;
@@ -193,6 +215,37 @@
     generateTimeline();
     updateProgress();
     setInterval(updateProgress, 1000);
+	
+	// Live Clock + Date
+setInterval(() => {
+  document.getElementById("liveClock").textContent =
+    new Date().toLocaleTimeString();
+}, 1000);
+
+document.getElementById("currentDate").textContent =
+  new Date().toLocaleDateString('en-US', {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+  });
+
+// Random Motivational Quote
+<!-- const quotes = [ -->
+  <!-- "Focus on being productive, not busy.", -->
+  <!-- "Discipline is doing it even when you don’t feel like it.", -->
+  <!-- "Time is your most valuable currency.", -->
+  <!-- "Win the morning, win the day.", -->
+  <!-- "You don’t need more time, you need more focus." -->
+<!-- ]; -->
+<!-- const quoteBox = document.getElementById("quoteBox"); -->
+<!-- quoteBox.textContent = `"${quotes[Math.floor(Math.random() * quotes.length)]}"`; -->
+
+fetch("https://zenquotes.io/api/random")
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("quoteBox").textContent = `"${data[0].q}" — ${data[0].a}`;
+  })
+  .catch(err => console.error("Failed to fetch quote", err));
+
+
 	
 	if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js')
