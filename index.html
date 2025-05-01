@@ -238,12 +238,14 @@ document.getElementById("currentDate").textContent =
 <!-- const quoteBox = document.getElementById("quoteBox"); -->
 <!-- quoteBox.textContent = `"${quotes[Math.floor(Math.random() * quotes.length)]}"`; -->
 
-fetch("https://zenquotes.io/api/random")
+fetch("https://type.fit/api/quotes")
   .then(res => res.json())
   .then(data => {
-    document.getElementById("quoteBox").textContent = `"${data[0].q}" — ${data[0].a}`;
-  })
-  .catch(err => console.error("Failed to fetch quote", err));
+    const quote = data[Math.floor(Math.random() * data.length)];
+    document.getElementById("quoteBox").textContent =
+      `"${quote.text}" — ${quote.author || "Unknown"}`;
+  });
+
 
 
 	
