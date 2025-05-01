@@ -238,12 +238,12 @@ document.getElementById("currentDate").textContent =
 <!-- const quoteBox = document.getElementById("quoteBox"); -->
 <!-- quoteBox.textContent = `"${quotes[Math.floor(Math.random() * quotes.length)]}"`; -->
 
-fetch("https://type.fit/api/quotes")
+fetch("https://api.allorigins.win/get?url=" + encodeURIComponent("https://zenquotes.io/api/random"))
   .then(res => res.json())
   .then(data => {
-    const quote = data[Math.floor(Math.random() * data.length)];
-    document.getElementById("quoteBox").textContent =
-      `"${quote.text}" — ${quote.author || "Unknown"}`;
+    const json = JSON.parse(data.contents);
+    const quote = json[0];
+    document.getElementById("quoteBox").textContent = `"${quote.q}" — ${quote.a}`;
   });
 
 
